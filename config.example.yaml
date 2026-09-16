@@ -1,0 +1,27 @@
+# XCP Center Web configuration
+# Copy to /etc/xcp-center/config.yaml and edit.
+
+app:
+  name: "XCP Center Web"
+  organization: "Your Org"
+  secret_key: "change-me"
+  port: 8443
+  tls: false
+  simple_mode: true
+  confirm_power_actions: true
+  refresh_seconds: 10
+  demo_enabled: true
+
+features:
+  new_vm_wizard: false
+  console: false
+  live_migrate: false
+  iso_attach: false
+  xva_import_export: false
+  ha_wlb: false
+
+pools: []
+  # - id: prod
+  #   host: 10.0.0.10
+  #   user: root
+  #   # password via XCP_CENTER_POOL_prod_PASSWORD env var
