@@ -19,6 +19,7 @@ python3 -m venv "$work/verify"
 "$work/verify/bin/pip" freeze > "$source/requirements.lock"
 cd "$source"
 "$work/verify/bin/python" -m unittest discover -s tests -v
+find "$source" -name __pycache__ -type d -prune -exec rm -rf {} +
 release="/src/releases/1.0.0/el$major"
 mkdir -p "$release/rpms/dependencies" "$release/python-sources"
 python3 /src/packaging/collect-sources.py "$source/requirements.lock" "$release/python-sources"
