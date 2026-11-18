@@ -1,0 +1,26 @@
+[Unit]
+Description=Flagship Web — Cyber Chief XCP-ng console
+After=network.target
+
+[Service]
+Type=simple
+User=flagship-web
+Group=flagship-web
+WorkingDirectory=/opt/flagship-web
+EnvironmentFile=-/etc/flagship-web/environment
+ExecStart=/usr/bin/flagship-web serve
+Restart=on-failure
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/flagship-web
+RestrictSUIDSGID=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+[Install]
+WantedBy=multi-user.target
