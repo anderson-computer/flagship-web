@@ -1,52 +1,28 @@
-# XCP Center Web
+# Flagship Web
 
-A browser-based management console for XCP-ng / XenServer pools. Talks directly to XAPI on the pool master (JSON-RPC, XML-RPC fallback). No Xen Orchestra dependency.
+**Flagship Web 1.0.0** is the browser companion to Flagship, part of the **Cyber Chief toolkit**. It manages XCP-ng and XenServer through direct TLS-verified XAPI connections. Standalone hosts and pools are supported; Xen Orchestra and internet access are not required.
 
-## Features (1.0)
+Previously named XCP Center Web. The previous repository was a scaffold; this release implements the application using Flagship's BSD-licensed XAPI transport.
 
-- Connect one or more pools (master IP, credentials)
-- Left tree with four views: Infrastructure, Folders, Objects, Tags
-- Folders stored as `other_config.folder` (same metadata Windows XCP-ng Center uses)
-- Power actions: start, shutdown, reboot, suspend, resume, force
-- Snapshot, clone, rename, new VLAN network
-- Storage and host overview
-- Searchable offline help (14 articles, files on disk)
-- Built-in offline demo pool for training with no hypervisor
-- Configurable via `config.yaml` (name, org, port, TLS, demo, simple mode, feature flags, pre-seeded pools)
+## Install
 
-## Not in 1.0
+Download the matching **Rocky Linux 9 or 10 x86_64 offline bundle** from [Releases](https://github.com/mike0615/flagship-web/releases/tag/v1.0.0). Extract it, review its checksums and run `sudo bash install.sh`. Full Python wheels and Rocky RPM dependencies are included. A standalone application RPM is also available for systems with dependencies already staged.
 
-Full New VM wizard, in-page VNC console, live migrate UI, ISO attach, XVA import/export, HA/WLB. Feature flags exist to hide these until implemented.
+Read [installation and first sign-in](docs/INSTALL.md), [operator guide](docs/USER_GUIDE.md), [administration](docs/ADMINISTRATION.md), [security](docs/SECURITY.md), [ICD](docs/ICD.md), [specification](docs/SPECIFICATION.md), [validation](docs/VALIDATION.md), [release notes](RELEASE_NOTES.md) and [build guide](docs/BUILD.md).
 
-## Run on Rocky 9
+## Included
 
-```bash
-sudo dnf install -y python3 python3-pip
-cd /opt
-sudo unzip xcp-center-web.zip   # or clone this repo
-cd /opt/xcp-center-web
-sudo python3 -m venv venv
-sudo ./venv/bin/pip install -r requirements.txt
-sudo mkdir -p /etc/xcp-center
-sudo cp config.example.yaml /etc/xcp-center/config.yaml
-sudo cp systemd/xcp-center.service /etc/systemd/system/
-sudo useradd -r -s /sbin/nologin xcpcenter || true
-sudo chown -R xcpcenter:xcpcenter /opt/xcp-center-web
-sudo systemctl enable --now xcp-center
-```
+- Local console authentication and per-browser, memory-only XAPI connections.
+- Multiple connections, pool/host/VM/storage/network/task inventory.
+- Confirmed start, shutdown, reboot, force shutdown/reboot, suspend/resume, snapshot, clone, rename and folder assignment for regular VMs.
+- Offline demo, searchable embedded documentation and About page.
+- Private operation journals; mutations are never retried automatically.
+- Loopback-only service and native EL9/EL10 packages with network-disabled installation tests.
 
-Browse to `http://SERVER:8443`.
+No new-VM wizard, VNC console, live migration, VLAN creation, XVA import/export, ISO attachment, HA/WLB, scheduled jobs or persistent pool credential vault is included. All browser scripts, styles, icons and Help content are local.
 
-## Folder convention
+## Repository layout
 
-- `VM.other_config["folder"]` = `/Prod/Web`
-- `network.other_config["folder"]` = `/Prod/DMZ`
-- Nested folders use path prefixes; search "contained in /Prod" = `folder.startswith("/Prod")`
+`flagship_web/` runtime, templates and static assets; `docs/` embedded and standalone documentation; `tests/` security, transport, workflow and package lifecycle checks; `packaging/` RPM spec, service and build/test scripts; `.github/workflows/` CI/release automation; `releases/1.0.0/` locally generated artifacts (published as GitHub release assets, not committed).
 
-## Config
-
-See `config.example.yaml`. Pool passwords via `XCP_CENTER_POOL_<ID>_PASSWORD`.
-
-## License
-
-TBD
+Copyright © 2026 Mike Anderson. See [LICENSE](LICENSE) and [third-party notices](THIRD_PARTY_NOTICES.md). Public source availability does not grant an additional license to owner-controlled application code.

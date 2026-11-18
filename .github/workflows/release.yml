@@ -1,0 +1,41 @@
+name: Publish Flagship Web 1.0.0
+on:
+  push:
+    branches: [flagship-web-release]
+permissions:
+  contents: write
+concurrency:
+  group: flagship-web-release
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        rocky: [9, 10]
+    steps:
+      - uses: actions/checkout@v4
+      - run: CONTAINER_ENGINE=docker bash build.sh ${{ matrix.rocky }}
+      - run: CONTAINER_ENGINE=docker bash packaging/test-offline.sh ${{ matrix.rocky }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: flagship-web-el${{ matrix.rocky }}
+          path: releases/1.0.0/
+  publish:
+    needs: build
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: flagship-web-el*
+          path: releases/1.0.0/
+          merge-multiple: true
+      - run: |
+          cd releases/1.0.0
+          sha256sum *.tar.gz el*/rpms/flagship-web-*.rpm > SHA256SUMS
+      - name: Publish tested assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create v1.0.0 --target "${{ github.sha }}" --title 'Flagship Web 1.0.0' --notes-file RELEASE_NOTES.md releases/1.0.0/*.tar.gz releases/1.0.0/el*/rpms/flagship-web-*.rpm releases/1.0.0/SHA256SUMS
