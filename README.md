@@ -4,6 +4,12 @@
 
 Previously named XCP Center Web. The previous repository was a scaffold; this release implements the application using Flagship's BSD-licensed XAPI transport.
 
+![Flagship Web infrastructure overview in the offline demo](docs/images/flagship-web-infrastructure.png)
+
+![Flagship Web virtual machine list in the offline demo](docs/images/flagship-web-vms.png)
+
+*Screenshots: Flagship Web 1.0.0 running its built-in offline demo (simulated data, no host connection).*
+
 ## Install
 
 Download the matching **Rocky Linux 9 or 10 x86_64 offline bundle** from [Releases](https://github.com/mike0615/flagship-web/releases/tag/v1.0.0). Extract it, review its checksums and run `sudo bash install.sh`. Full Python wheels and Rocky RPM dependencies are included. A standalone application RPM is also available for systems with dependencies already staged.
