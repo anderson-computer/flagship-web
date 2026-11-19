@@ -4,6 +4,8 @@
 
 Previously named XCP Center Web. The previous repository was a scaffold; this release implements the application using Flagship's BSD-licensed XAPI transport.
 
+**Who it's for:** Administrators of XCP-ng and XenServer standalone hosts or pools who want a browser-based companion to Flagship that runs locally, without Xen Orchestra or internet access.
+
 ## Install
 
 Download the matching **Rocky Linux 9 or 10 x86_64 offline bundle** from [Releases](https://github.com/mike0615/flagship-web/releases/tag/v1.0.0). Extract it, review its checksums and run `sudo bash install.sh`. Full Python wheels and Rocky RPM dependencies are included. A standalone application RPM is also available for systems with dependencies already staged.
@@ -26,3 +28,7 @@ No new-VM wizard, VNC console, live migration, VLAN creation, XVA import/export,
 `flagship_web/` runtime, templates and static assets; `docs/` embedded and standalone documentation; `tests/` security, transport, workflow and package lifecycle checks; `packaging/` RPM spec, service and build/test scripts; `.github/workflows/` CI/release automation; `releases/1.0.0/` locally generated artifacts (published as GitHub release assets, not committed).
 
 Copyright © 2026 Mike Anderson. See [LICENSE](LICENSE) and [third-party notices](THIRD_PARTY_NOTICES.md). Public source availability does not grant an additional license to owner-controlled application code.
+
+---
+
+**Part of the Cyber Chief toolkit** by Anderson Computer. Sibling projects: [Flagship](https://github.com/mike0615/flagship) · [Porthole](https://github.com/mike0615/porthole) · [Skiff](https://github.com/mike0615/skiff) · [Sonar](https://github.com/mike0615/sonar) · [Helm RDP](https://github.com/mike0615/helm-rdp) · [Pathfinder](https://github.com/mike0615/pathfinder) · [FleetOps](https://github.com/mike0615/fleet-ops) · [Dockyard](https://github.com/mike0615/dockyard) · [CommShack](https://github.com/mike0615/commshack).
